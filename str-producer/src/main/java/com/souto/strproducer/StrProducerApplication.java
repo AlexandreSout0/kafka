@@ -1,4 +1,4 @@
-package com.alx.strproducer;
+package com.souto.strproducer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
