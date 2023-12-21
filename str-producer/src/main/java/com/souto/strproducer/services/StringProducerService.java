@@ -20,12 +20,12 @@ public class StringProducerService {
 
         CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send("str-topic", message).toCompletableFuture();
         future.whenComplete((result, exception) -> {
-//            if (exception == null) {
-//                log.info("Send message with sucess {}", message );
-//                log.info("Partiton => {} | Offset => {}",result.getRecordMetadata().partition(), result.getRecordMetadata().offset());
-//            } else {
-//                log.error("Error send message {}",message);
-//            }
+            if (exception == null) {
+                log.info("Send message with sucess {}", message );
+                log.info("Partiton => {} | Offset => {}",result.getRecordMetadata().partition(), result.getRecordMetadata().offset());
+            } else {
+                log.error("Error send message {}",message);
+            }
         });
 
     }

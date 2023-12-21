@@ -1,21 +1,21 @@
-version: '3'
+version: '3' # Versão do formato do arquivo Docker Compose.
 
-services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    networks:
-      - broker-kafka
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
+services: # Define os serviços que compõem sua aplicação. -> serviços: zookeeper, kafka e kafdrop.
+  zookeeper: # Configuração do serviço Zookeeper.
+    image: confluentinc/cp-zookeeper:latest # Imagem Docker a ser usada para o serviço. Ex. confluentinc/cp-zookeeper:latest.
+    networks: # Associa o serviço à rede chamada broker-kafka.
+      - broker-kafka  
+    environment: #Define variáveis de ambiente para o serviço Zookeeper, como a porta do cliente (ZOOKEEPER_CLIENT_PORT) e o tempo do tick (ZOOKEEPER_TICK_TIME).
+      ZOOKEEPER_CLIENT_PORT: 2181 
       ZOOKEEPER_TICK_TIME: 2000
 
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    networks:
+  kafka: # Configuração do serviço kafka.
+    image: confluentinc/cp-kafka:latest #Imagem Docker a ser usada para o serviço. Ex. confluentinc/cp-kafka:latest
+    networks: # Associa o serviço à rede chamada broker-kafka.
       - broker-kafka
-    depends_on:
+    depends_on: # Especifica que o serviço depende do serviço zookeeper.
       - zookeeper
-    ports:
+    ports: #  Mapeia a porta 9092 do host para a porta 9092 do contêiner Kafka.
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
@@ -26,16 +26,17 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   kafdrop:
-    image: obsidiandynamics/kafdrop:latest
-    networks:
+    image: obsidiandynamics/kafdrop:latest #Imagem Docker a ser usada para o serviço. Ex. obsidiandynamics/kafdrop:latest.
+    networks: # Associa o serviço à rede chamada broker-kafka.
       - broker-kafka
-    depends_on:
+    depends_on: # Especifica que o serviço depende do serviço kafka.
       - kafka
     ports:
-      - "19000:9000"
+      - "19000:9000" # Mapeia a porta 19000 do host para a porta 9000 do contêiner Kafdrop.
     environment:
-      KAFKA_BROKERCONNECT: kafka:29092
+      KAFKA_BROKERCONNECT: kafka:29092 #Define a conexão com o corretor Kafka (KAFKA_BROKERCONNECT).
+
 
 networks:
-  broker-kafka:
+  broker-kafka: #Config. de rede usando o driver de bridge. Esta rede é usada para conectar os serviços zookeeper, kafka e kafdrop.
     driver: bridge
