@@ -16,7 +16,7 @@ public class PaymentResourceImpl implements PaymentResource {
     @Autowired
     private PaymentService paymentService;
     @Override
-    public ResponseEntity<Payment> payment(Payment payment) {
+    public ResponseEntity<Payment> payment(Payment payment) throws InterruptedException {
         paymentService.sendPayment(payment);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
