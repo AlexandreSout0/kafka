@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"postgres-jdbc-18ca6763d36-1ee9ed0798cd3591": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "teste_data_base",
+			"save-password": true,
+			"configuration": {
+				"host": "0.0.0.0",
+				"port": "5432",
+				"database": "teste_data_base",
+				"url": "jdbc:postgresql://0.0.0.0:5432/teste_data_base",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {},
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800
+		}
+	}
+}
